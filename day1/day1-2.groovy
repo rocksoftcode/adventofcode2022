@@ -1,1 +1,1 @@
-println new File('input.txt').text.split(/\n\n/)*.split(/\n/).collect { it.collect { it.toInteger() }}*.sum().sort({ i1, i2 -> i2 - i1}).subList(0, 3).sum()
+println new File('input.txt').text.split(/\n\n/)*.split(/\n/).collect { it.collect { it.toInteger() }}*.sum().sort().reverse().subList(0, 3).sum()
