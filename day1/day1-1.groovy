@@ -1,0 +1,1 @@
+println new File('input.txt').text.split(/\n\n/)*.split(/\n/).collect { it.collect { it.toInteger() }}*.sum().max()
