@@ -20,10 +20,10 @@ input.eachWithIndex {it, i ->
 	mod *= divisible as BigInteger
 	monkeys << new Monkey(index: i, items: items, operation: operation, divisible: divisible, outcomes: outcomes)
 }
-def calc = { it[1] == '*' ? it[0].toBigInteger() * it[2].toBigInteger() : it[0].toBigInteger() + it[2].toBigInteger() }
+def calc = {it[1] == '*' ? it[0].toBigInteger() * it[2].toBigInteger() : it[0].toBigInteger() + it[2].toBigInteger()}
 10_000.times {
 	monkeys.each {m ->
-		m.inspections+=m.items.size()
+		m.inspections += m.items.size()
 		while (m.items) {
 			def i = m.items.pop()
 			def result = calc(m.operation.replaceAll('old', i.toString()).split(/\s/).findAll {it})
@@ -33,5 +33,5 @@ def calc = { it[1] == '*' ? it[0].toBigInteger() * it[2].toBigInteger() : it[0].
 	}
 }
 
-def byInspection = monkeys.sort { it.inspections }.reverse()
+def byInspection = monkeys.sort {it.inspections}.reverse()
 println byInspection[0].inspections * byInspection[1].inspections
