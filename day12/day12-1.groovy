@@ -1,21 +1,16 @@
 def input = new File('input.txt').text.split(/\n/)
-def edges = [
-		[0, -1],
-		[0, 1],
-		[-1, 0],
-		[1, 0]
-]
+def edges = [[0, -1], [0, 1], [-1, 0], [1, 0]]
 def start, end
-def y = 0
-def map = input.collect { row ->
-	def x  = 0
-	def r = row.collect { ch ->
+def map = []
+input.eachWithIndex {row, y ->
+	def r = []
+	row.eachWithIndex {ch, x ->
 		def node = [
-			x: x++,
-			y: y,
-			visited: false,
-			height: ch.toCharacter() - 96,
-			distance: Integer.MAX_VALUE
+				x       : x,
+				y       : y,
+				visited : false,
+				height  : ch.toCharacter() - 96,
+				distance: Integer.MAX_VALUE
 		]
 		if (ch == 'S') {
 			node.height = 1
@@ -25,17 +20,16 @@ def map = input.collect { row ->
 			node.height = 26
 			end = node
 		}
-		return node
+		r << node
 	}
-	y++
-	r
+	map << r
 }
 
-map.each { r ->
-	r.each { node ->
+map.each {r ->
+	r.each {node ->
 		def nodes = []
-		for (def edge in edges) {
-			if (!map[node.y + edge[1]] || node.y + edge[1] < 0) continue
+		edges.each {edge->
+			if (!map[node.y + edge[1]] || node.y + edge[1] < 0) return
 			def n = map[node.y + edge[1]][node.x + edge[0]]
 			if (n) nodes << n
 		}
@@ -43,7 +37,7 @@ map.each { r ->
 	}
 }
 
-def solve = { n ->
+def solve = {n ->
 	n.distance = 0
 	def queue = [n]
 	while (queue) {
@@ -61,7 +55,6 @@ def solve = { n ->
 			}
 		}
 	}
-	return null
 }
 
 println solve(end)
