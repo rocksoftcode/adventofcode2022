@@ -4,19 +4,19 @@ def maxX = cmax(0)*2
 def maxY = cmax(1)
 
 def dropPoint = [500, 0]
-def drop = { screen ->
+def drop = { grid ->
 		def sand = dropPoint.collect()
 		def thru = false
 
 	while (true) {
 		if (sand[1] > maxY+1) {thru = true; break }
-		if (screen[sand[1]+1][sand[0]] == 0) { sand[1]++; continue }
-		if (screen[sand[1]+1][sand[0]-1] == 0) { sand[1]++; sand[0]--; continue }
-		if (screen[sand[1]+1][sand[0]+1] == 0) { sand[1]++; sand[0]++; continue }
+		if (grid[sand[1]+1][sand[0]] == 0) { sand[1]++; continue }
+		if (grid[sand[1]+1][sand[0]-1] == 0) { sand[1]++; sand[0]--; continue }
+		if (grid[sand[1]+1][sand[0]+1] == 0) { sand[1]++; sand[0]++; continue }
 		break
 	}
 
-	screen[sand[1]][sand[0]] = 2
+	grid[sand[1]][sand[0]] = 2
 	return sand[1] == 0
 }
 
