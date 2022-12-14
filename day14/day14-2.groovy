@@ -6,8 +6,6 @@ def maxY = cmax(1)
 def dropPoint = [500, 0]
 def drop = {grid ->
 	def sand = dropPoint.collect()
-	def thru = false
-
 	while (true) {
 		if (sand[1] > maxY + 1) {thru = true; break}
 		if (grid[sand[1] + 1][sand[0]] == 0) {sand[1]++; continue}
