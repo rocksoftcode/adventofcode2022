@@ -11,9 +11,9 @@ for (def y = 0; y < max; y++) {
 	input.each {
 		def minDist = distance(it.sensor, [x: it.sensor.x, y: y])
 		if (minDist <= it.dist) {
-			def distAroundX = it.dist - minDist
-			def from = it.sensor.x - distAroundX
-			def to = it.sensor.x + distAroundX
+			def aroundX = it.dist - minDist
+			def from = it.sensor.x - aroundX
+			def to = it.sensor.x + aroundX
 
 			intervals << [from, to]
 		}
