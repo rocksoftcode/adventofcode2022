@@ -38,7 +38,7 @@ for (def y = 0; y < max; y++) {
 
 	if (res.size() > 1) {
 		def x = res[0][1] + 1
-		println(x * 4_000_000 + y)
+		println(x * 4e6 + y) // sci notation required to coerce BigDecimal
 		System.exit(0)
 	}
 }

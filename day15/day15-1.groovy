@@ -5,9 +5,9 @@ def input = new File('input.txt').text.split(/\n/).collect {
 	def b = [x: points[2], y: points[3]]
 	[sensor: a, beacon: b, dist: distance(a, b)]
 }
-def y = input.size() == 14 ? 10 : 2_000_000
 def noBeacon = [] as Set
 def onLine = [] as Set
+def y = 2_000_000
 input.each {
 	if (it.beacon.y == y) {
 		onLine.add(it.beacon.x)
