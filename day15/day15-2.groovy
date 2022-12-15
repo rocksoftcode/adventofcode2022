@@ -5,7 +5,7 @@ def input = new File('input.txt').text.split(/\n/).collect {
 	def b = [x: points[2], y: points[3]]
 	[sensor: a, beacon: b, dist: distance(a, b)]
 }
-def max = input.size() == 14 ? 20 : 4000000
+def max = input.size() == 14 ? 20 : 4_000_000
 for (def y = 0; y < max; y++) {
 	def intervals = []
 	input.each {
