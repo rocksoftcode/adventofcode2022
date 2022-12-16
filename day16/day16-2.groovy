@@ -20,25 +20,25 @@ def calcDistance = {startName, distances = [:] ->
 }
 
 def compute = {timeRemaining ->
-	def paths = [[curr: 'AA', active: getActive().collect {it.name}, timeLeft: timeRemaining, finished: false, steps: [], released: 0]]
+	def paths = [[curr: 'AA', active: getActive().collect {it.name}, timeRemaining: timeRemaining, finished: false, steps: [], released: 0]]
 	def max = 0
-	for (def n = 0; n < paths.size(); n++) {
-		def path = paths[n]
-		if (path.timeLeft <= 0) path.finished = true
+	for (def i = 0; i < paths.size(); i++) {
+		def path = paths[i]
+		if (path.timeRemaining <= 0) path.finished = true
 		if (path.finished) continue
 
 		def distances = calcDistance(path.curr), moved = false
 		path.active.each {act ->
 			if (act == path.curr) return true
-			if (path.timeLeft - distances[act] <= 1) return true
+			if (path.timeRemaining - distances[act] <= 1) return true
 			moved = true
 			paths << [
-					curr    : act,
-					active  : path.active.findAll {it != act},
-					timeLeft: path.timeLeft - distances[act] - 1,
-					finished: false,
-					steps   : path.steps + [act],
-					released: path.released + (path.timeLeft - distances[act] - 1) * byName[act].rate
+					curr         : act,
+					active       : path.active.findAll {it != act},
+					timeRemaining: path.timeRemaining - distances[act] - 1,
+					finished     : false,
+					steps        : path.steps + [act],
+					released     : path.released + (path.timeRemaining - distances[act] - 1) * byName[act].rate
 			]
 		}
 		if (!moved) path.finished = true
