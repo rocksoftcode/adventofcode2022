@@ -27,18 +27,18 @@ def compute = {timeRemaining ->
 		if (path.timeRemaining <= 0) path.finished = true
 		if (path.finished) continue
 
-		def distances = calcDistance(path.curr), moved = false
-		path.active.each {act ->
-			if (act == path.curr) return true
-			if (path.timeRemaining - distances[act] <= 1) return true
+		def distances = calcDistance(path.curr)
+		def moved = false
+		path.active.each {active ->
+			if (active == path.curr || path.timeRemaining - distances[active] <= 1) return
 			moved = true
 			paths << [
-					curr         : act,
-					active       : path.active.findAll {it != act},
-					timeRemaining: path.timeRemaining - distances[act] - 1,
+					curr         : active,
+					active       : path.active.findAll {it != active},
+					timeRemaining: path.timeRemaining - distances[active] - 1,
 					finished     : false,
-					steps        : path.steps + [act],
-					released     : path.released + (path.timeRemaining - distances[act] - 1) * byName[act].rate
+					steps        : path.steps + [active],
+					released     : path.released + (path.timeRemaining - distances[active] - 1) * byName[active].rate
 			]
 		}
 		if (!moved) path.finished = true
