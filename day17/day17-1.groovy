@@ -9,7 +9,7 @@ def dirs = ['>': 1, '<': -1]
 def vents = new File('input.txt').text.split('')
 def vent = 0
 def height = 0
-def shapeNr = 0
+def shapeIdx = 0
 def heights = []
 def screen = []
 def pow2 = (0..10).collect {Math.pow(2, it) as Integer}
@@ -68,7 +68,7 @@ def advance = {rock ->
 def create = {
 	while (screen.size() <= height + 5) screen << 0
 	return [
-			shape: shapes[(shapeNr++) % 5],
+			shape: shapes[(shapeIdx++) % 5],
 			x    : 2,
 			y    : height + 3
 	]
