@@ -19,13 +19,12 @@ def heights = []
 def screen = []
 def pow2 = (0..10).collect {Math.pow(2, it) as Integer}
 
-def advanceHeight = {
+def incHeight = {
 	while (screen[height] != 0) height++
 }
 
-def getScreen = {x, y -> return ((screen[y] ?: 0) & pow2[x]) >> x}
-def setScreen = {x, y -> screen[y] += pow2[x]}
-
+def get = {x, y -> return ((screen[y] ?: 0) & pow2[x]) >> x}
+def set = {x, y -> screen[y] += pow2[x]}
 def advance = {rock ->
 	while (true) {
 		def dir = dirs[vents[vent % vents.size()]]
@@ -39,7 +38,7 @@ def advance = {rock ->
 					if (v == 0) return true
 					if (dir == -1 && rock.x + dir + x < 0) return false
 					if (dir == 1 && rock.x + dir + x > 6) return false
-					return getScreen(rock.x + x + dir, rock.y + y) == 0
+					return get(rock.x + x + dir, rock.y + y) == 0
 				}
 			}
 		}) rock.x += dir
@@ -54,7 +53,7 @@ def advance = {rock ->
 					x++
 					if (v == 0) return true
 					if (rock.y + y < 1) return false
-					return getScreen(rock.x + x, rock.y - 1 + y) == 0
+					return get(rock.x + x, rock.y - 1 + y) == 0
 				}
 			}
 		}) rock.y-- else break
@@ -63,11 +62,11 @@ def advance = {rock ->
 	rock.shape.eachWithIndex {row, y ->
 		row.eachWithIndex {v, x ->
 			if (v == 0) return true
-			setScreen(x + rock.x, y + rock.y)
+			set(x + rock.x, y + rock.y)
 		}
 	}
 
-	advanceHeight()
+	incHeight()
 }
 
 def create = {
