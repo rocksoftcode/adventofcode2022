@@ -44,7 +44,7 @@ def test = {blueprint, i ->
 									: Math.max(
 									Math.ceil((blueprint.costGeode[0] - ore) / oreRobots),
 									Math.ceil((blueprint.costGeode[1] - obsidian) / obsidianRobots)
-							));
+							))
 
 			search(
 					time - skip,
@@ -70,7 +70,7 @@ def test = {blueprint, i ->
 									: Math.max(
 									Math.ceil((blueprint.costObsidian[0] - ore) / oreRobots),
 									Math.ceil((blueprint.costObsidian[1] - clay) / clayRobots)
-							));
+							))
 
 			if (time - skip > 2) {
 				search(
@@ -106,7 +106,7 @@ def test = {blueprint, i ->
 		}
 
 		if (oreRobots < calcMax.ore) {
-			def buildOre = blueprint.costOre <= ore;
+			def buildOre = blueprint.costOre <= ore
 			def skip =
 					1 + (buildOre ? 0 : Math.ceil((blueprint.costOre - ore) / oreRobots))
 
