@@ -12,8 +12,8 @@ def values = { value -> nodes.findAll { n -> n.value == value}[0] }
 def move = { node, moves ->
 	def numMoves = Math.abs(moves) % (nodes.size()-1)
 	if (numMoves == 0) return
-	def idLeft = node.markLeft
-	def idRight = node.markRight
+	def markLeft = node.markLeft
+	def markRight = node.markRight
 	def nodeId = node.id
 	def dir = moves > 0 ? right : left
 	numMoves.times { nodeId = dir(nodeId) }
@@ -26,8 +26,8 @@ def move = { node, moves ->
 	}
 	nodes[node.markLeft].markRight = node.id
 	nodes[node.markRight].markLeft = node.id
-	nodes[idLeft].markRight = idRight
-	nodes[idRight].markLeft = idLeft
+	nodes[markLeft].markRight = markRight
+	nodes[markRight].markLeft = markLeft
 }
 input.each { n -> add(n) }
 nodes[0].markLeft = nodes.size()-1
