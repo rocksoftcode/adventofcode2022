@@ -1,7 +1,7 @@
 def input = new File('input.txt').readLines().collectEntries {
 	def parts = it.split(/:\s/)
 	def eq = parts[1].split(/\s/).toList()
-	[parts[0], eq.size() == 1 ? new BigInteger(parts[1]) : eq]
+	[parts[0], eq.size() == 1 ? parts[1] : eq]
 }
 def expr
 expr = {map, k = 'root' ->

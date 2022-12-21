@@ -1,7 +1,7 @@
 def input = new File('input.txt').readLines().collectEntries {
 	def parts = it.split(/:\s/)
 	def eq = parts[1].split(/\s/).toList()
-	[parts[0], eq.size() == 1 ? new BigInteger(parts[1]) : eq]
+	[parts[0], eq.size() == 1 ? parts[1] : eq]
 }
 input.root[1] = '-'
 input.humn = 'x'
@@ -14,8 +14,8 @@ expr = {map, k = 'root' ->
 def search
 search = {cmp,
           inv = false,
-          min = new BigInteger("0"),
-          max = new BigInteger(Long.MAX_VALUE.toString())
+          min = 0L,
+          max = Long.MAX_VALUE
 	->
 	while (min != max) {
 		def pivot = ((min + max) / 2).trunc()
