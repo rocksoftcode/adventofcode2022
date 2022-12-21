@@ -9,7 +9,7 @@ input.humn = 'x'
 def expr
 expr = {map, k = 'root' ->
 	def v = map[k] ?: k
-	v instanceof List ? "(${v.collect {p -> expr(map, p)}.join(' ')})" : v
+	v instanceof List ? "(${v.collect {expr(map, it)}.join(' ')})" : v
 }
 def search
 search = {cmp,

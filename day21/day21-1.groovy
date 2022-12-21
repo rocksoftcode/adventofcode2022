@@ -6,6 +6,6 @@ def input = new File('input.txt').readLines().collectEntries {
 def expr
 expr = {map, k = 'root' ->
 	def v = map[k] ?: k
-	v instanceof List ? "(${v.collect {p -> expr(map, p)}.join(' ')})" : v
+	v instanceof List ? "(${v.collect {expr(map, it)}.join(' ')})" : v
 }
 println evaluate(expr(input))
