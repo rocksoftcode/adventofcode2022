@@ -7,15 +7,15 @@ input.root[1] = '-'
 input.humn = 'x'
 
 def expr
-expr = {map, key = 'root' ->
-	def v = map[key] ?: key
+expr = {map, k = 'root' ->
+	def v = map[k] ?: k
 	v instanceof List ? "(${v.collect {p -> expr(map, p)}.join(' ')})" : v
 }
 def search
 search = {cmp,
           inv = false,
           min = new BigInteger("0"),
-          max = new BigInteger("4503599627370495")
+          max = new BigInteger(Long.MAX_VALUE.toString())
 	->
 	while (min != max) {
 		def pivot = ((min + max) / 2).trunc()
@@ -25,7 +25,7 @@ search = {cmp,
 			if (min == pivot)
 				return inv
 						? null
-						: search({x -> -cmp(x)}, true)
+						: search({-cmp(it)}, true)
 			min = pivot
 		} else {
 			max = ((min + max) / 2).trunc()
