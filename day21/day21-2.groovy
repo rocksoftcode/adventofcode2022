@@ -33,5 +33,5 @@ search = {cmp,
 	}
 }
 
-def start = {exp -> search({x -> Eval.x(x, exp)})}
+def start = {exp -> search({Eval.x(it, exp)})}
 println start(expr(input))
