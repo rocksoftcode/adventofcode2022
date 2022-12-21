@@ -28,10 +28,9 @@ search = {cmp,
 						: search({x -> -cmp(x)}, true)
 			min = pivot
 		} else {
-			max = (min + max) / 2
+			max = ((min + max) / 2).trunc()
 		}
 	}
-	null
 }
 
 def start = {exp -> search({x -> Eval.x(x, exp)})}
