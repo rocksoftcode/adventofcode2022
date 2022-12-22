@@ -13,7 +13,6 @@ def rows = map.size()
 def path = input[1]
 def forwards = path.findAll( /\d+/)*.toInteger()
 def rotations = path.findAll(/[RL]/)
-def pos = [row: 0, col: 0, dir: '>']
 
 def inc = ['>': [1, 0], 'v': [0, 1], '<': [-1, 0], '^': [0, -1]]
 def dirs = ['>': 0, 'v': 1, '<': 2, '^': 3]
