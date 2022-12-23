@@ -35,10 +35,10 @@ def run = {
 		for (def locId = start; locId < start + 4; locId++) {
 			def loc = locs[locId % 4];
 			if (loc.from.every {!adj.contains(it)}) {
-				def _k = key(x + dirs[loc.to].dx, y + dirs[loc.to].dy)
-				if (!poss[_k]) poss[_k] = 0
-				poss[_k]++
-				dest[e] = _k
+				def k = key(x + dirs[loc.to].dx, y + dirs[loc.to].dy)
+				if (!poss[k]) poss[k] = 0
+				poss[k]++
+				dest[e] = k
 				break
 			}
 		}
