@@ -1,17 +1,17 @@
-def key =  { x, y ->  y+':'+x }
+def key = {x, y -> y + ':' + x}
 def elves = [] as Set
-new File('input.txt').text.split(/\n/).eachWithIndex{ line, y ->
-	line.split('').eachWithIndex { v, x -> if (v == '#') elves << key(x,y) }
+new File('input.txt').text.split(/\n/).eachWithIndex {line, y ->
+	line.split('').eachWithIndex {v, x -> if (v == '#') elves << key(x, y)}
 }
-def directions = [
-	N:  [dx:  0, dy: -1],
-	NE: [dx:  1, dy: -1],
-	E:  [dx:  1, dy:  0],
-	SE: [dx:  1, dy:  1],
-	S:  [dx:  0, dy:  1],
-	SW: [dx: -1, dy:  1],
-	W:  [dx: -1, dy:  0],
-	NW: [dx: -1, dy: -1]
+def dirs = [
+		N : [dx: 0, dy: -1],
+		NE: [dx: 1, dy: -1],
+		E : [dx: 1, dy: 0],
+		SE: [dx: 1, dy: 1],
+		S : [dx: 0, dy: 1],
+		SW: [dx: -1, dy: 1],
+		W : [dx: -1, dy: 0],
+		NW: [dx: -1, dy: -1]
 ]
 def locs = [
 		[from: ['NW', 'NE', 'N'], to: 'N'],
@@ -25,17 +25,17 @@ def run = {
 	def considerations = [:]
 	def destinations = [:]
 
-	elves.each { e ->
+	elves.each {e ->
 		def coords = e.split(/:/)*.toInteger()
-		def x = coords[1],y = coords[0]
+		def x = coords[1], y = coords[0]
 		def adj = [] as Set
 
-		directions.each { _k, dir -> if (elves.contains(key(x+dir.dx, y+dir.dy))) adj << _k }
+		dirs.each {_k, dir -> if (elves.contains(key(x + dir.dx, y + dir.dy))) adj << _k}
 		if (adj.size() == 0) return true
-		for (def locId = start; locId < start+4; locId++) {
+		for (def locId = start; locId < start + 4; locId++) {
 			def loc = locs[locId % 4];
-			if (loc.from.every {!adj.contains(it) }) {
-				def _k = key(x+directions[loc.to].dx, y+directions[loc.to].dy)
+			if (loc.from.every {!adj.contains(it)}) {
+				def _k = key(x + dirs[loc.to].dx, y + dirs[loc.to].dy)
 				if (!considerations[_k]) considerations[_k] = 0
 				considerations[_k]++
 				destinations[e] = _k
@@ -46,7 +46,7 @@ def run = {
 
 	def newPos = [] as Set
 	def moved = false
-	elves.each { e ->
+	elves.each {e ->
 		if (destinations[e] && considerations[destinations[e]] == 1) {
 			newPos << destinations[e]
 			moved = true
@@ -57,9 +57,9 @@ def run = {
 	newPos
 }
 
-10.times {elves = run(elves) }
+10.times {elves = run(elves)}
 def minX = 4, maxX = 4, minY = 4, maxY = 4
-elves.each { e ->
+elves.each {e ->
 	def coords = e.split(':')*.toInteger()
 	y = coords[0]
 	x = coords[1]
@@ -68,4 +68,4 @@ elves.each { e ->
 	maxX = Math.max(maxX, x)
 	maxY = Math.max(maxY, y)
 }
-println ((1+Math.abs(maxY-minY))*(1+Math.abs(maxX-minX))-elves.size())
+println((1 + Math.abs(maxY - minY)) * (1 + Math.abs(maxX - minX)) - elves.size())
