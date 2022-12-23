@@ -22,23 +22,23 @@ def locs = [
 
 def start = 0
 def run = {
-	def considerations = [:]
-	def destinations = [:]
+	def poss = [:]
+	def dest = [:]
 
 	elves.each {e ->
 		def coords = e.split(/:/)*.toInteger()
 		def x = coords[1], y = coords[0]
 		def adj = [] as Set
 
-		dirs.each {_k, dir -> if (elves.contains(key(x + dir.dx, y + dir.dy))) adj << _k}
+		dirs.each {k, dir -> if (elves.contains(key(x + dir.dx, y + dir.dy))) adj << k}
 		if (adj.size() == 0) return true
 		for (def locId = start; locId < start + 4; locId++) {
 			def loc = locs[locId % 4];
 			if (loc.from.every {!adj.contains(it)}) {
 				def _k = key(x + dirs[loc.to].dx, y + dirs[loc.to].dy)
-				if (!considerations[_k]) considerations[_k] = 0
-				considerations[_k]++
-				destinations[e] = _k
+				if (!poss[_k]) poss[_k] = 0
+				poss[_k]++
+				dest[e] = _k
 				break
 			}
 		}
@@ -47,8 +47,8 @@ def run = {
 	def newPos = [] as Set
 	def moved = false
 	elves.each {e ->
-		if (destinations[e] && considerations[destinations[e]] == 1) {
-			newPos << destinations[e]
+		if (dest[e] && poss[dest[e]] == 1) {
+			newPos << dest[e]
 			moved = true
 		} else newPos << e
 	}
