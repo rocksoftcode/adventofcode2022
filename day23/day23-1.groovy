@@ -61,8 +61,8 @@ def run = {
 def minX = 4, maxX = 4, minY = 4, maxY = 4
 elves.each {e ->
 	def coords = e.split(':')*.toInteger()
-	y = coords[0]
-	x = coords[1]
+	def y = coords[0]
+	def x = coords[1]
 	minX = Math.min(minX, x)
 	minY = Math.min(minY, y)
 	maxX = Math.max(maxX, x)
