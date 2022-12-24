@@ -8,30 +8,30 @@ def openings = {
 	def columns = input[0].size()
 	def cycle = lcm(rows, columns)
 	def blizzards = []
-	input.eachWithIndex {row, r ->
-		row.eachWithIndex {e, c ->
+	input.eachWithIndex {r, i ->
+		r.eachWithIndex {e, c ->
 			if (e != -1) {
-				blizzards << [r: r, c: c, transform: dirs[e]]
+				blizzards << [r: i, c: c, transform: dirs[e]]
 			}
 		}
 	}
-	return (0..cycle).collect {
+	(0..cycle).collect {
 		def map = (0..rows).collect {(0..columns).collect {1}}
-		blizzards.each {b ->
-			map[b.r][b.c] = 0
-			b.r += b.transform[0]
-			b.c += b.transform[1]
-			if (b.r == -1) {
-				b.r = rows - 1
+		blizzards.each {
+			map[it.r][it.c] = 0
+			it.r += it.transform[0]
+			it.c += it.transform[1]
+			if (it.r == -1) {
+				it.r = rows - 1
 			}
-			if (b.r == rows) {
-				b.r = 0
+			if (it.r == rows) {
+				it.r = 0
 			}
-			if (b.c == -1) {
-				b.c = columns - 1
+			if (it.c == -1) {
+				it.c = columns - 1
 			}
-			if (b.c == columns) {
-				b.c = 0
+			if (it.c == columns) {
+				it.c = 0
 			}
 		}
 		map
