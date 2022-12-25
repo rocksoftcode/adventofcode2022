@@ -59,7 +59,7 @@ def run = {
 			}
 			def nextStates = []
 			steps++
-			def willBeSafe = opens[(steps + 1) % cycle]
+			def isOpen = opens[(steps + 1) % cycle]
 			for (def state in states) {
 				def r = state[0]
 				def c = state[1]
@@ -70,7 +70,7 @@ def run = {
 						found = true
 						steps++
 					}
-					if ((nextC < 0 || !seen[nextR][nextC]) && ((nextR === startR && nextC === startC) || (nextR >= 0 && nextC >= 0 && nextR < rows && nextC < columns && willBeSafe[nextR][nextC]))) {
+					if ((nextC < 0 || !seen[nextR][nextC]) && ((nextR === startR && nextC === startC) || (nextR >= 0 && nextC >= 0 && nextR < rows && nextC < columns && isOpen[nextR][nextC]))) {
 						seen[nextR][nextC] = true
 						nextStates << [nextR, nextC]
 					}
