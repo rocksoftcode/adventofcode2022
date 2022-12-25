@@ -10,11 +10,11 @@ def toSnafu = {decimal ->
 				result = remainder + result
 				break
 			case 3:
-				result = "=" + result
+				result = "=$result"
 				decimal += 5
 				break
 			case 4:
-				result = "-" + result
+				result = "-$result"
 				decimal += 5
 				break
 		}
@@ -29,12 +29,12 @@ def toDecimal = {snafuNum ->
 	def mult = 1 as BigInteger
 	for (def digit in digits) {
 		def val = 0 as BigInteger
-		if (digit == "-") {
+		if (digit == '-') {
 			val = -1
-		} else if (digit == "=") {
+		} else if (digit == '=') {
 			val = -2
 		} else {
-			val = digit.toInteger()
+			val = digit.toBigInteger()
 		}
 		decimal += val * mult
 		mult *= 5
